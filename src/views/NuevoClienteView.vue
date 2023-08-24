@@ -3,7 +3,13 @@
 import RouterLink from '../components/UI/RouterLink.vue';
 import Heading from '../components/UI/Heading.vue';
 
+import axios from 'axios';
+
 import { FormKit } from '@formkit/vue';
+
+import { useRouter } from 'vue-router';
+
+const router =useRouter()
 
 
 defineProps({
@@ -14,7 +20,11 @@ defineProps({
 })
 
 const handleSubmit=(data)=>{
-    console.log(data);
+    axios.post('http://localhost:3000/clientes',data)
+    .then((respuesta)=>{
+        //redirect
+        router.push({name:'inicio'})
+    })
 }
 </script>
 <template>
@@ -67,8 +77,8 @@ const handleSubmit=(data)=>{
                         type="text"
                         label="Telefono"
                         name="telefono"
-                        placeholder="Telefono: XXX-XXX-XXXX"
-                        validation="*matches:/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"
+                        placeholder="Telefono"
+                        validation="*matches:/^[0-9]{10}$/"
                         :validation-messages="{matches:'Coloca un teléfono válido'}"
                     />
 

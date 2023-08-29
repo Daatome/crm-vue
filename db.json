@@ -1,10 +1,6 @@
 {
   "clientes": [
     {
-      "nombre": "Daniel",
-      "id": 1
-    },
-    {
       "nombre": "Daniel Guadalupe",
       "apellido": "Atonal Melgarejo",
       "email": "danielatonal8@gmail.com",

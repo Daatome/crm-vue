@@ -1,15 +1,43 @@
 
 <script setup>
+import { onMounted, reactive } from 'vue';
 import RouterLink from '../components/UI/RouterLink.vue';
 import Heading from '../components/UI/Heading.vue';
 
 import ClienteService from '../services/ClienteService';
 import { FormKit } from '@formkit/vue';
 
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const router =useRouter()
+const route = useRoute()
 
+
+const {id}=route.params
+
+const formData= reactive({
+    nombre: '',
+    apellido:'',
+    email:'',
+    telefono:'',
+    empresa:'',
+    puesto:'',
+    estado: 1
+
+})
+
+onMounted(()=>{
+    ClienteService.obtenerCliente(id)
+    .then(({data})=>{
+        formData.nombre=data.nombre
+        formData.apellido=data.apellido
+        formData.email=data.email
+        formData.telefono=data.telefono
+        formData.empresa=data.empresa
+        formData.puesto=data.puesto
+    })
+    .catch(()=>console.log(console.error()))
+})
 
 defineProps({
     titulo:{
@@ -18,13 +46,11 @@ defineProps({
     }
 })
 
+
 const handleSubmit=(data)=>{
-    data.estado=1
-    ClienteService.registrarCliente(data)
-    .then((respuesta)=>{
-        //redirect
-        router.push({name:'inicio'})
-    })
+    ClienteService.actualizarCliente(id,data)
+    .then(()=> router.push({name:'inicio'}))
+    .catch(error=> console.log(error))
 }
 </script>
 <template>
@@ -41,9 +67,10 @@ const handleSubmit=(data)=>{
 
                 <FormKit
                     type="form"
-                    submit-label="Agregar Cliente"
+                    submit-label="Editar Cliente"
                     incomplete-message="No se pudo enviar revisa los mensajes"
                     @submit="handleSubmit"
+                    :value="formData"
                 >
                     <FormKit
                         type="text"
@@ -53,6 +80,7 @@ const handleSubmit=(data)=>{
                         validation="required"
                         :validation-messages="{required: 'El nombre es obligatorio'}"
                         validation-visibility="blur"
+                        v-model="formData.nombre"
                     />
                     <FormKit
                         type="text"
@@ -62,6 +90,8 @@ const handleSubmit=(data)=>{
                         validation="required"
                         :validation-messages="{required: 'El apellido es obligatorio'}"
                         validation-visibility="blur"
+                        v-model="formData.apellido"
+
                     />
 
                     <FormKit
@@ -72,6 +102,8 @@ const handleSubmit=(data)=>{
                         validation="required|email"
                         :validation-messages="{required: 'El email es obligatorio',email:'Coloca un email válido'}"
                         validation-visibility="blur"
+                        v-model="formData.email"
+
                     />
                     <FormKit
                         type="text"
@@ -80,6 +112,8 @@ const handleSubmit=(data)=>{
                         placeholder="Telefono"
                         validation="*matches:/^[0-9]{10}$/"
                         :validation-messages="{matches:'Coloca un teléfono válido'}"
+                        v-model="formData.telefono"
+
                     />
 
                     <FormKit
@@ -87,12 +121,16 @@ const handleSubmit=(data)=>{
                         label="Empresa"
                         name="empresa"
                         placeholder="Introduce la empresa del cliente"
+                        v-model="formData.empresa"
+
                     />
                     <FormKit
                         type="text"
                         label="Puesto"
                         name="puesto"
                         placeholder="Introduce el puesto del cliente"
+                        v-model="formData.puesto"
+
                     />
 
                   

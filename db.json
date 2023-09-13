@@ -1,22 +1,13 @@
 {
   "clientes": [
     {
-      "nombre": "Daniel Guadalupe",
-      "apellido": "Atonal Melgarejo",
-      "email": "danielatonal8@gmail.com",
-      "telefono": "556-600-9087",
-      "empresa": "Universidad Autónoma Metropolitana",
-      "puesto": "Dev",
-      "id": 2
-    },
-    {
-      "nombre": "Daniel Guadalupe",
+      "nombre": "Daniel Guadalupe 2",
       "apellido": "Atonal Melgarejo",
       "email": "danielatonal8@gmail.com",
       "telefono": "5566009087",
       "empresa": "Universidad Autónoma Metropolitana",
       "puesto": "BACKEND DEV",
-      "id": 3
+      "id": 1
     }
   ]
 }

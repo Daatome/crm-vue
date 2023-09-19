@@ -7,7 +7,18 @@
       "telefono": "5566009087",
       "empresa": "Universidad Autónoma Metropolitana",
       "puesto": "BACKEND DEV",
-      "id": 1
+      "id": 1,
+      "estado":0
+    },
+    {
+      "nombre": "Daniel Guadalupe 1",
+      "apellido": "Atonal Melgarejo",
+      "email": "danielatonal8@gmail.com",
+      "telefono": "5566009087",
+      "empresa": "Universidad Autónoma Metropolitana",
+      "puesto": "BACKEND DEV",
+      "id": 2,
+      "estado":1
     }
   ]
 }

@@ -12,6 +12,13 @@ export default{
     },
     actualizarCliente(id,data){
         return api.put('/clientes/'+id,data)
+    },
+    actualizarEstado(id,data){
+        return api.patch('/clientes/'+id,data)
+    },
+    eliminarCliente(id){
+        return api.delete('/clientes/'+id);
     }
+
 
 }

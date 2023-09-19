@@ -24,8 +24,25 @@ defineProps({
 
 })
 
+
 const existenClientes=()=>{
     return clientes.value.length>0
+}
+
+const actualizarEstado=({id,estado})=>{
+
+    ClienteService.actualizarEstado(id,{estado: !estado})
+    .then(() => {
+        const i = clientes.value.findIndex(cliente=> cliente.id==id)
+        clientes.value[i].estado=!estado
+    }).catch()
+}
+
+const eliminarCliente=(id)=>{
+    ClienteService.eliminarCliente(id)
+    .then(()=>{
+       clientes.value= clientes.value.filter((cliente)=>cliente.id!=id)
+    }).catch()
 }
 
 
@@ -55,6 +72,8 @@ const existenClientes=()=>{
                             <Cliente v-for="cliente in clientes"
                                 :key="cliente.id"
                                 :cliente="cliente"
+                                @actualizar-estado="actualizarEstado"
+                                @eliminar-cliente="eliminarCliente"
                             />
                         </tbody>
                     </table>
